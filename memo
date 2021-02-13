@@ -29,5 +29,14 @@ DB_PASSWORD=
 ・マイグレーションファイルの生成
 php artisan make:migration create_stocks_table
 php artisan make:migration create_carts_table
+php artisan make:migration create_mine_table
 カラムの生成
 php artisan migrate
+・シーダーファイルの生成
+php artisan make:seed StockTableSeeder
+php artisan make:seed MineTableSeeder
+databaseSeederにstock.mineの記述をする
+シーダー機能はオートロードを使用するのでコマンドで実行
+composer dump-autoload
+シーダーの実行
+php artisan db:seed
