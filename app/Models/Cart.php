@@ -21,7 +21,18 @@ class Cart extends Model
     public function showCart()
     {
         $user_id = Auth::id();
-        return $this->where('user_id', $user_id)->get();
+        $data['my_carts'] = $this->where('user_id', $user_id)->get();
+
+        //カート内の合計金額を出す
+        $data['count'] = 0;
+        $data['sum'] = 0;
+
+        foreach ($data['my_carts'] as $my_cart) {
+            $data['count']++;
+            $data['sum'] += $my_cart->stock->fee;
+        }
+
+        return $data;
     }
 
     public function addCart($stock_id)
