@@ -12,6 +12,12 @@ class Cart extends Model
         'user_id'
     ];
 
+    //リレーション従カート主ストック
+    public function stock()
+    {
+        return $this->belongsTo('\App\Models\Stock');
+    }
+
     public function showCart()
     {
         $user_id = Auth::id();
@@ -28,17 +34,28 @@ class Cart extends Model
         ]);
         //wasRecentlyCreated 直近でレコードされた場合はtrueを返す
         if ($cart_add_info->wasRecentlyCreated) {
-            $massage = 'カートに追加しました';
+            $message = 'カートに追加しました';
         } else {
-            $massage = 'カートに登録済みです';
+            $message = 'カートに登録済みです';
         }
 
-        return  $massage;
+        return  $message;
     }
 
-    //リレーション従カート主ストック
-    public function stock()
+    public function deleteCart($stock_id)
     {
-        return $this->belongsTo('\App\Models\Stock');
+        $user_id = Auth::id();
+        $delete = $this->where('user_id', $user_id)->where('stock_id', $stock_id)->delete();
+
+        //->delete()で影響を与えたレコードの数を返す
+        if ($delete > 0) {
+            $message = 'カートから削除しました';
+        } else {
+            $message = '削除に失敗しました';
+        }
+
+        return $message;
     }
+
+
 }

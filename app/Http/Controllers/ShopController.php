@@ -35,4 +35,16 @@ class ShopController extends Controller
 
         return view('mycart', compact('my_carts', 'message'));
     }
+
+    public function deleteCart(Request $request, Cart $cart)
+    {
+        //カートから削除の処理
+        $stock_id = $request->stock_id;
+        $message = $cart->deleteCart($stock_id);
+
+        //削除後のカート情報を取得する
+        $my_carts = $cart->showCart();
+
+        return view('mycart', compact('my_carts', 'message'));
+    }
 }

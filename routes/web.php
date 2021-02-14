@@ -20,6 +20,9 @@ Route::get('/mycart','ShopController@myCart')->middleware('auth');
 //カートに追加
 Route::post('/mycart','ShopController@addMyCart');
 
+//削除機能
+Route::post('/cartdelete','ShopController@deleteCart');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
