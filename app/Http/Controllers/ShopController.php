@@ -23,25 +23,15 @@ class ShopController extends Controller
         return view('mycart', compact('my_carts'));
     }
 
-    public function addMycart(Request $request)
+    public function addMycart(Request $request, Cart $cart)
     {
-//ログイン中のユーザーIDを取得
-        $user_id = Auth::id();
-//ポストhiddenで送られてきたstock_idを取得
+        //ポストhiddenで送られてきたstock_idを取得
         $stock_id = $request->stock_id;
-//firstOrCreate stock_idとuser_idが全く同じレコードが存在しないか確認してから保存する
-        $cart_add_info = Cart::firstOrCreate([
-            'stock_id' => $stock_id,
-            'user_id' => $user_id
-            ]);
-//wasRecentlyCreated 直近で保存された場合はtrueを返す
-        if ($cart_add_info->wasRecentlyCreated) {
-            $message = 'カートに追加しました';
-        } else {
-            $message = 'カートに登録済みです';
-        }
-//カートの情報を取得する
-        $my_carts = Cart::where('user_id', $user_id)->get();
+        //カートに追加
+        $message = $cart->addCart($stock_id);
+
+        //追加後のカートの情報を取得する
+        $my_carts = $cart->showCart();
 
         return view('mycart', compact('my_carts', 'message'));
     }
