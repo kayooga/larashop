@@ -29,14 +29,56 @@ DB_PASSWORD=
 ・マイグレーションファイルの生成
 php artisan make:migration create_stocks_table
 php artisan make:migration create_carts_table
-php artisan make:migration create_mine_table
 カラムの生成
 php artisan migrate
 ・シーダーファイルの生成
 php artisan make:seed StockTableSeeder
-php artisan make:seed MineTableSeeder
-databaseSeederにstock.mineの記述をする
+php artisan make:seed CartTableSeeder
+databaseSeederにstockの記述をする
 シーダー機能はオートロードを使用するのでコマンドで実行
 composer dump-autoload
 シーダーの実行
 php artisan db:seed
+
+//ルーティング
+
+//コントローラーの作成
+php artisan make:controller ShopController
+
+//viewの作成
+
+//Modelの作成
+php artisan make:model Models/Stock
+php artisan make:model Models/Cart
+$gurdedか$fillableの記述をする
+
+//controllerにモデル操作の記述をする
+DBから情報を取得する
+情報をviewに受け渡す
+viewで受け取って表示する(viewの作業)
+
+//カート機能を作る
+①商品一覧ページの各商品ごとに「カートに追加」ボタンを作るview
+②カートに追加ボタンからPOST送信で/mycartにアクセスされた場合のルートを作成する。route
+③Cartsテーブルにログイン状態のユーザーのIDと商品のIDを格納する。controller
+今回は在庫が1つしかない設定ですのでこのようにしていますが、
+カートに同じ種類のものを複数入れて行きたいのであれば、
+else内でカート内数を＋１させる処理をしてその情報をデータベースに持たせるなどしても良さそうですね。
+同時にstocksテーブルにも在庫状態を…ってなってくるのでこの記事では触れないおきます。実践でやってみてください！
+④Cartsテーブルから情報を取得して表示する。controller->view
+
+//style
+resources/sass/_styleを作る
+app.sccsにimportする
+_styleに書き込む
+
+//sccsをコンパイルする
+
+//headerのレイアウト
+.env  APP_NAMEを変更する
+
+//mycart.blade
+$messageがあるときないとき{{ $message ?? '' }}
+
+//controllerのDB操作をCartModelに書く
+モデルに書いてコントローラーをすっきりさせる

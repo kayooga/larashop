@@ -11,9 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//商品一覧画面
+Route::get('/','ShopController@index');
+
+//カート画面 ログインしている人にだけ表示する
+Route::get('/mycart','ShopController@myCart')->middleware('auth');
+
+//カートに追加
+Route::post('/mycart','ShopController@addMyCart');
 
 Auth::routes();
 

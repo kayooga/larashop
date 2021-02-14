@@ -21,10 +21,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light  shadow-sm" style="background-color:#17b5d8; color:#fefefe;">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" style="color:#fefefe; font-size1.4em" href="{{ url('/') }}">
+                    {{ config('app.name', 'LaraShop') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -64,8 +64,14 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{ url('/mycart') }}">
+                                        カートを見る
+                                    </a>
                                 </div>
                             </li>
+                            <a href="{{ url('/mycart') }}">
+                                <img src="{{ asset('image/cart.png') }}">
+                            </a>
                         @endguest
                     </ul>
                 </div>
