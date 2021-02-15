@@ -14,17 +14,19 @@
 //商品一覧画面
 Route::get('/','ShopController@index');
 
-//カート画面 ログインしている人にだけ表示する
-Route::get('/mycart','ShopController@myCart')->middleware('auth');
-
-//カートに追加
-Route::post('/mycart','ShopController@addMyCart')->middleware('auth');
-
-//削除機能
-Route::post('/cartdelete','ShopController@deleteCart');
-
-//購入機能
-Route::post('/checkout','ShopController@checkout');
+Route::group(['middleware' => ['auth']], function() {
+  //カート画面 ログインしている人にだけ表示する
+  Route::get('/mycart','ShopController@myCart');
+  
+  //カートに追加
+  Route::post('/mycart','ShopController@addMyCart');
+  
+  //削除機能
+  Route::post('/cartdelete','ShopController@deleteCart');
+  
+  //購入機能
+  Route::post('/checkout','ShopController@checkout');
+}); 
 
 Auth::routes();
 
