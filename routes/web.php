@@ -26,6 +26,10 @@ Route::group(['middleware' => ['auth']], function() {
   
   //購入機能
   Route::post('/checkout','ShopController@checkout');
+
+  //購入履歴
+  Route::get('/history','HistoryController@history');
+
 }); 
 
 Auth::routes();

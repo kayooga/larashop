@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Models\History;
 
 class Cart extends Model
 {
@@ -72,6 +73,7 @@ class Cart extends Model
     {
         $user_id = Auth::id();
         $checkout_items = $this->where('user_id', $user_id)->get();
+        // dd($checkout_items);
         $this->where('user_id',$user_id)->delete();
 
         return $checkout_items;

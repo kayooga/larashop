@@ -35,15 +35,19 @@
                       個数：{{ $count }}個 <br>
                       <p style="font-size:1.2em; font-weight:bold;">合計金額：{{ number_format($sum) }}円</p>
                     </div>
-                    <form action="/checkout" method="post">
+                    <form action="/checkout" method="POST">
                       @csrf
+                      @foreach ($my_carts as $my_cart)
+                      <input type="hidden" name="num" value="1">
+                      <input type="hidden" name="stock_id" value="{{ $my_cart->stock_id }}">
+                      @endforeach
                       <button type="submit" class="btn btn-danger btn-lg text-center buy-btn">購入する</button>
                     </form>
 
                 @else
                     <p class="text-center"> カート内は空です </p>
                 @endif
-                
+
                 <a href="/">商品一覧へ</a>
               </div>
             </div>

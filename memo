@@ -107,3 +107,16 @@ app/Mails/Thanks.phpとresouces/views/mails/thanks.blade.phpができる
 コントローラーのチェックアウトメソッドに追加する
 mails/thanks.blade.phpで送信内容を編集
 Mail/Thanks.phpの編集
+
+//購入履歴
+履歴テーブル生成
+php artisan make:migration create_histories_table
+カラムの生成・マイグレート
+コントローラーの生成
+php artisan make:controller HistoryController
+モデルの生成
+php artisan make:model Models/History
+リクエストの生成
+php artisan make:request HistoryRequest
+
+カートテーブルから削除したデータを履歴に移管させる

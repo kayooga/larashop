@@ -67,6 +67,9 @@
                                     <a class="dropdown-item" href="{{ url('/mycart') }}">
                                         カートを見る
                                     </a>
+                                    <a class="dropdown-item" href="{{ url('/history') }}">
+                                        購入履歴
+                                    </a>
                                 </div>
                             </li>
                             <a href="{{ url('/mycart') }}">

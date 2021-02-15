@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use App\Models\Cart;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Thanks;
+use App\Http\Requests\HistoryRequest;
+
 
 class ShopController extends Controller
 {
@@ -52,12 +55,15 @@ class ShopController extends Controller
             ->with('message', $message);
     }
 
-    public function checkout(Cart $cart)
+    public function checkout(Request $request, Cart $cart)
     {
         $user = Auth::user();
         $mail_data['user'] = $user->name;
         //カート内を削除し、削除した情報を取得
         $mail_data['checkout_items']=$cart->checkoutCart();
+        //購入履歴に反映
+        $his_data = $request->all();
+        History::create($his_data);
         //ログインユーザーのアドレスが格納された変数をいれる
         //thanks.phpに書いた方がいい
         Mail::to($user->email)->send(new Thanks($mail_data));
