@@ -92,3 +92,18 @@ $messageがあるときないとき{{ $message ?? '' }}
 モデルでカート内情報を取得するタイミングで取得
 コントローラーで受け取る
 ビューで表示
+
+//購入機能
+①購入するボタンを押すと購入完了画面に遷移する
+ルーティング
+②カートテーブルから該当の商品を削除する
+modelで削除したカート情報を取得しておく
+③Mailの送信内容を記入する
+mailtrapの設定を.envに反映させる
+メールフォルダを作る
+php artisan make:mail Thanks --markdown="mails.thanks"
+app/Mails/Thanks.phpとresouces/views/mails/thanks.blade.phpができる
+④Mailhogで擬似のメールを送信する。
+コントローラーのチェックアウトメソッドに追加する
+mails/thanks.blade.phpで送信内容を編集
+Mail/Thanks.phpの編集

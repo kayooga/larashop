@@ -6,6 +6,8 @@ use App\Models\Stock;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Thanks;
 
 class ShopController extends Controller
 {
@@ -48,5 +50,17 @@ class ShopController extends Controller
 
         return view('mycart', $data)
             ->with('message', $message);
+    }
+
+    public function checkout(Cart $cart)
+    {
+        $user = Auth::user();
+        $mail_data['user'] = $user->name;
+        //カート内を削除し、削除した情報を取得
+        $mail_data['checkout_items']=$cart->checkoutCart();
+        //ログインユーザーのアドレスが格納された変数をいれる
+        //thanks.phpに書いた方がいい
+        Mail::to($user->email)->send(new Thanks($mail_data));
+        return view('checkout');
     }
 }

@@ -18,10 +18,13 @@ Route::get('/','ShopController@index');
 Route::get('/mycart','ShopController@myCart')->middleware('auth');
 
 //カートに追加
-Route::post('/mycart','ShopController@addMyCart');
+Route::post('/mycart','ShopController@addMyCart')->middleware('auth');
 
 //削除機能
 Route::post('/cartdelete','ShopController@deleteCart');
+
+//購入機能
+Route::post('/checkout','ShopController@checkout');
 
 Auth::routes();
 
